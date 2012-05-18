@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>eu.vitaliy</groupId>
+        <artifactId>vitaliy-parent-java-se</artifactId>
+        <version>1.0.1</version>
+    </parent>
+    <groupId>eu.vitaliy</groupId>
+    <artifactId>simple-aspectj-security</artifactId>
+    <version>0.1-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.6.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <version>1.6.12</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.4</version>
+                <configuration>
+                    <complianceLevel>1.6</complianceLevel>
+                    <weaveDependencies>
+                        <!--<weaveDependency>
+                            <groupId>eu.vitaliy</groupId>
+                            <artifactId>simple-aspectj-security</artifactId>
+                        </weaveDependency>-->
+                    </weaveDependencies>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <!--<aspectDirectory>src/main/aspectj</aspectDirectory>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.1</version>
+
+                <configuration>
+                    <mainClass>${mvn.main.class}</mainClass>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>${mvn.main.class}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <properties>
+        <mvn.main.class>eu.vitaliy.testaspectjsecurity.Main</mvn.main.class>
+    </properties>
+</project>
